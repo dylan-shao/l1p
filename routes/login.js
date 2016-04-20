@@ -12,7 +12,9 @@ router.get('/', function(req, res, next){
 })
 
 router.post('/', function(req, res, next){
+	console.log("123router");
 	var user = req.body;
+	console.log("user"+user.username);
 	if(!user || !user.username ||!user.password){
 		res.json({msg: 'username or password is needed'})
 		return;
@@ -20,6 +22,7 @@ router.post('/', function(req, res, next){
 	db.then(function(db){
 		return db.collection('users').find(user).toArray();
 	}).then(function(users){
+		console.log("router users[0].password:  	"+users[0].password);
 		if(!users || users.length == 0){
 			res.json({
 				msg: 'username or password not match'
@@ -27,9 +30,9 @@ router.post('/', function(req, res, next){
 			return;
 		}
 
-		console.log("user"+user);
+		
 		var deferred = Q.defer();
-		req.session.user = user[0];
+		req.session.user = users[0];
 		req.session.save(function(err){
 			if(err) deferred.reject(err)
 			else deferred.resolve({username: user.username})

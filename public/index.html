@@ -6,17 +6,14 @@
 	<script src="libs/jquery/dist/jquery.js"></script>
 	<script src="libs/angular/angular.js"></script>
 </head>
-<body ng-app="app" ng-controller="LoginCtrl as login">
-	<form ng-show="!login.user" onsubmit="return false;">
-		<label>UserName:</label>
-		<input ng-model="nu.username">
-		<label>PassWord:</label>
-		<input ng-model="nu.password">
-		<button ng-click="login.login(nu)">Login</button>
-		<div calss="errmsg" ng-hide="!login.msg">{{login.msg}}</div>
-	</form>
-	<div ng-show="!!login.user">Welcome, {{login.user.username}},
-	<a class="btn btn-danger" ng-click="login.logout()">Logout</a></div>
+<body ng-app="app">
+	<my-login></my-login>
+	<div ng-controller="MainCtrl">
+		<div ng-show="!!user">Welcome, {{user.username}},
+		<a class="btn btn-danger" ng-click="logout()">Logout</a>
+		</div>
+	</div>
 	<script src="app.js"></script>
+	<script src="login.js"></script>
 </body>
 </html>
